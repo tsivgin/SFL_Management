@@ -1,0 +1,80 @@
+﻿@model Tuple<IEnumerable<SFLOnline.Models.ClassSchedule>, IEnumerable<SFLOnline.Models.Slot>, IEnumerable<SFLOnline.Models.Day>>
+
+@{
+    ViewBag.Title = "WeeklySchedule";
+    Layout = "~/Views/Shared/_InstructorLayout.cshtml";
+}
+
+<h2>WeeklySchedule</h2>
+
+@using (Html.BeginForm())
+{
+
+    @Html.AntiForgeryToken()
+
+    <table class="table table-bordered mt-4 mb-4">
+        <tr>
+            <th>
+
+            </th>
+            @foreach (var item in Model.Item2)
+            {
+                <th>
+                    @Html.DisplayFor(modelItem => item.SlotName)
+                </th>
+            }
+
+        </tr>
+        @{
+            foreach (var item3 in Model.Item3)
+            {
+                <tr>
+                    <th>
+                        @Html.DisplayFor(modelItem => item3.DaysName)
+                    </th>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    @{
+                        var count = 0;
+                        var slots = 0;
+
+
+
+                        foreach (var item2 in Model.Item2)
+                        {
+                            foreach (var item1 in Model.Item1)
+                            {
+                                slots += 1;
+                                if (item1.SlotId == item2.SlotId && item1.DayId == item3.DayId)
+                                {
+                                    <td class="text-center">
+                                        @Html.DisplayFor(modelItem => item1.EnrollmentInstructor.Course.Title) 
+                                        @Html.DisplayFor(modelItem => item1.EnrollmentInstructor.Class.ClassName)
+                                    </td>
+                                    break;
+                                }
+                                else
+                                {
+                                    count += 1;
+                                }
+                            }
+                            if (count == slots)
+                            {
+                                <td>
+                                </td>
+                            }
+                            count = 0;
+                            slots = 0;
+
+                        }
+
+                    }
+                </tr>
+
+
+            }
+        }
+
+
+    </table>
+}

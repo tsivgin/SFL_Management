@@ -1,0 +1,41 @@
+﻿@model SFLOnline.Models.Person
+
+@{
+    ViewBag.Title = "AdminAccount";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Admin Account</h2>
+
+
+<table class="table">
+
+
+
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.EMail) :
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.EMail)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.FullName) :
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.FullName)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.Id) :
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.Id)
+        </td>
+    </tr>
+
+
+</table>

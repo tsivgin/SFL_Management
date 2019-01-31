@@ -1,0 +1,43 @@
+﻿@model IEnumerable<SFLOnline.Models.TrackCourses>
+@{
+    /**/
+
+    ViewBag.Title = "IndexCourses";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<h2>Courses</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Course Name
+        </th>
+        <th>
+            Select
+        </th>
+        
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Course.Title)
+            </td>
+           
+            <td>
+                @Html.ActionLink("Grade", "Grades", new { id = item.CourseId , tid=item.TrackId}, new { @class = "btn btn-primary" })
+            </td>
+           
+        </tr>
+    }
+
+
+
+</table>
+
+<div>
+    @Html.ActionLink("Back", "Index")
+</div>

@@ -1,0 +1,68 @@
+﻿@model SFLOnline.Models.Person
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SFL Online</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="@Url.Content("~/Content/LoginPage.css")" rel="stylesheet" type="text/css" />
+    <script src="~/Content/forgotPwdShowHide.js"></script>
+</head>
+<body class="container-fluid">
+    <div class="left">
+        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl },
+                    FormMethod.Post, new { @class = "clearfix", role = "form", autocomplete = "off" }))
+        {
+            @Html.AntiForgeryToken()
+            <br />
+            <img src="~/Content/Images/sfl_en_logo.jpg" height="80" />
+            <h3><i class="fa fa-sign-in" aria-hidden="true"></i> SFL Online</h3>
+            <h4>Course Management System</h4>
+            <div class="center-form-items" id="login">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EMail, new { @class = "control-label" })
+                    <i id="username-help" class="fa fa-info-circle"></i>
+                    @Html.TextBoxFor(model => model.EMail, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.EMail, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Password, new { @class = "control-label" })
+                    @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <button id="submit-button" type="submit" class="btn btn-primary btn-block">Sign In</button>
+                </div>
+                <button type="button" id="forgotbtn" class="btn btn-link" onclick="onClickClose()">Forgot Password?</button>
+                @Html.ValidationSummary(true)
+            </div>
+        }
+        <div  id="forgotpwd" class="center-form-items" style="display:none">
+            <form method="post" action="@Url.Action("ForgotPassword", "Account")" >
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EMail, new { @class = "control-label" })
+                    <i id="username-help" class="fa fa-info-circle"></i>
+                    @Html.TextBoxFor(model => model.EMail, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.EMail, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <button id="submit-button" type="submit" class="btn btn-primary btn-block">Reset Password</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="right">
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+</body>
+</html>

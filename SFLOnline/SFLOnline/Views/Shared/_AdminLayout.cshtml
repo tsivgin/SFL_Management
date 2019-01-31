@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    @using System.Threading;
+    @using System.Security.Claims;
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - SFL Online</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="@Url.Content("~/Content/SideBar.css")" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2">
+                    <!-- Sidebar  -->
+                    <nav id="sidebar" class="style-1 text-white" style="background-color:#">
+                        <div class="sidebar-header">
+                            <h4>SFL Admin Dashboard</h4>
+                        </div>
+                        <ul class="list-unstyled components">
+
+                            @{
+                                var ctx = Request.GetOwinContext();
+
+                                var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
+
+                                // Get the claims values
+                                var userid = identity.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier)
+                                                   .Select(c => c.Value).SingleOrDefault();  //Emaili getirdi, ID için ClaimTypes.NameIdentifier yaz Email yerine
+
+
+                                <p>Welcome, @userid</p>
+                            }
+
+                            <li class="active">
+                                @Html.ActionLink("Home", "AdminHome", "Home", null, null)
+                            </li>
+                            <li>
+                                @Html.ActionLink("Write Announcement", "Index", "Announcements", null, null)
+                            </li>
+                            <li>
+                                @Html.ActionLink("Classes", "Index", "Classes", null, null)
+                            </li>
+                            <li>
+                                @Html.ActionLink("Courses", "Index", "Courses", null, null)
+                            </li>
+                            <li>
+                                <a href="#gradeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Grading</a>
+                                <ul class="collapse list-unstyled" id="gradeSubmenu">
+                                    <li>
+                                        @Html.ActionLink("Grade Percentages", "Index", "GradePercentages", null, null)
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("Grades", "Index", "Grades", null, null)
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#userSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Manage Users</a>
+                                <ul class="collapse list-unstyled" id="userSubmenu">
+                                    <li>
+                                        @Html.ActionLink("Manage Students", "Index", "Students", null, null)
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("Manage Instructors", "Index", "Instructors", null, null)
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                @Html.ActionLink("Modules", "Index", "Modules", null, null)
+                            </li>
+                            <li>
+                                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Manage Enrollments</a>
+                                <ul class="collapse list-unstyled" id="pageSubmenu">
+                                    <li>
+                                        @Html.ActionLink("Enroll Students", "Index", "EnrollmentStudents", null, null)
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("Enroll Instructors", "Index", "EnrollmentInstructors", null, null)
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("Days", "Index", "Days", null, null)
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("Slots", "Index", "Slots", null, null)
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#trackSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Track</a>
+                                <ul class="collapse list-unstyled" id="trackSubmenu">
+                                    <li>
+                                        @Html.ActionLink("Tracks", "Index", "Tracks", null, null)
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("Track Courses", "Index", "TrackCourses", null, null)
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="#exitSubMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Exit Exam</a>
+                                <ul class="collapse list-unstyled" id="exitSubMenu">
+                                    <li>
+                                        @Html.ActionLink("Exit Exams", "Index", "Exits", null, null)
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("Student Exit Grades", "Index", "StudentExitGrades", null, null)
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("Tracks Grade", "Index", "ExitTracks", null, null)
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("Passed Information", "Index", "InformationPasseds", null, null)
+                                    </li>
+                                </ul>
+                            </li>
+
+
+
+
+
+                        </ul>
+                        <ul class="list-unstyled CTAs">
+                            <li>
+                                @Html.ActionLink("Account", "AdminAccount", "Home", null, new { @class = "download" })
+                               @* <a href="#" class="download">Account</a>*@
+                            </li>
+                            <li>
+                                <form method="post" action="@Url.Action("LogOut", "Account")" id="signoutfrm" style="display:none;">
+                                    @Html.AntiForgeryToken()
+                                </form>
+
+                                <a href="" onclick="$('#signoutfrm').submit(); return false;">LOGOUT</a>
+                            </li>
+                        </ul>
+
+
+                    </nav>
+                </div>
+                <!-- Page Content  -->
+                <div class="col-md-10">
+                    <br />
+                    @RenderBody()
+                    <hr />
+                    <footer>
+                        <p>&copy; @DateTime.Now.Year - SFL Online</p>
+                    </footer>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+            @Scripts.Render("~/bundles/jquery")
+            @Scripts.Render("~/bundles/bootstrap")
+            @RenderSection("scripts", required: false)
+</body>
+</html>

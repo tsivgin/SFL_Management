@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    @using System.Threading;
+    @using System.Security.Claims;
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - SFL Online</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="@Url.Content("~/Content/SideBar.css")" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-2">
+                    <!-- Sidebar  -->
+                    <nav id="sidebar" style="overflow-y:hidden">
+                        <div class="sidebar-header">
+                            <h4>SFL Student Dashboard</h4>
+                        </div>
+                        <ul class="list-unstyled components">
+
+                            @{
+                                var ctx = Request.GetOwinContext();
+
+                                var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
+
+                                // Get the claims values
+                                var userid = identity.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier)
+                                                   .Select(c => c.Value).SingleOrDefault();  //Emaili getirdi, ID için ClaimTypes.NameIdentifier yaz Email yerine
+
+
+                                <p>Welcome, @userid</p>
+                            }
+
+                            <li class="active">
+                                @Html.ActionLink("Home", "StudentHome", "Home", null, null)
+                            </li>
+                            <li>
+                                @Html.ActionLink("Courses", "Index", "Student", null, null)
+                            </li>
+                            <li>
+                                @Html.ActionLink("Weekly Schedule", "WeeklySchedule", "Student", null, null)
+                            </li>
+                            <li>
+                                @Html.ActionLink("My Attendance", "Attendance", "Student", null, null)
+                            </li>
+                            <li>
+                                @Html.ActionLink("Academic Status", "AcademicStatus", "Student", null, null)
+                            </li>
+                            <li>
+                                @Html.ActionLink("Exit Calculate", "CalculateExit", "Student", null, null)
+                            </li>                            
+                        </ul>
+                        <ul class="list-unstyled CTAs">
+                            <li>
+                                @Html.ActionLink("Account", "StudentAccount", "Home", null, new { @class = "download" })
+                                
+                            </li>
+                            <li>
+                                <form method="post" action="@Url.Action("LogOut", "Account")" id="signoutfrm" style="display:none;">
+                                    @Html.AntiForgeryToken()
+                                </form>
+
+                                <a href="" onclick="$('#signoutfrm').submit(); return false;">LOGOUT</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <!-- Page Content  -->
+                <div class="col-md-10">
+                    <br />
+                    @RenderBody()
+                    <hr />
+                    <footer>
+                        <p>&copy; @DateTime.Now.Year - SFL Online</p>
+                    </footer>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

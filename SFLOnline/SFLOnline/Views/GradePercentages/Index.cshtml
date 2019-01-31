@@ -1,0 +1,71 @@
+﻿@model IEnumerable<SFLOnline.Models.GradePercentage>
+
+@{
+    ViewBag.Title = "Grade Percentages";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Grade Percentages</h2>
+
+<p  class="text-primary">
+    @Html.ActionLink("Create New GradePercentage", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Track.TrackName)
+        </th>
+        <th>
+            Course Title
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Percentage
+        </th>
+        <th>
+            Module
+        </th>
+        <th>
+            Edit
+        </th>
+        <th>
+            Details
+        </th>
+        <th>
+            Delete
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Track.TrackName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Course.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.percentage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Module.ModuleName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-warning" })
+        </td>
+        <td>
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+        </td>
+    </tr>
+    }
+
+</table>

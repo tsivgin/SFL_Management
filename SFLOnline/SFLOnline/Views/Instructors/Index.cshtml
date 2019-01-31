@@ -1,0 +1,71 @@
+﻿@model IEnumerable<SFLOnline.Models.Instructor>
+
+@{
+    ViewBag.Title = "Instructors";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Instructors</h2>
+
+<p class="text-primary">
+    @Html.ActionLink("Create New Instructor", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Instructor ID
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstMidName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EMail)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>*@
+        <th>
+            Edit
+        </th>
+        <th>
+            Details
+        </th>
+        <th>
+            Delete
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstMidName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EMail)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.Password)
+        </td>*@
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-warning" })
+        </td>
+        <td>
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+        </td>
+    </tr>
+    }
+
+</table>

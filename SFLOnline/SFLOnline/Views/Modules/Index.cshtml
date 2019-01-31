@@ -1,0 +1,54 @@
+﻿@model IEnumerable<SFLOnline.Models.Module>
+
+@{
+    ViewBag.Title = "Modules";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Modules</h2>
+
+<p  class="text-primary">
+    @Html.ActionLink("Create New Module", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ModuleName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.active)
+        </th>
+        <th>
+            Active
+        </th>
+        <th>
+            InActive
+        </th>
+        <th>
+            Delete
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModuleName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.active)
+        </td>
+
+        <td>
+            @Html.ActionLink("ModuleActive", "ModuleActive", new { id = item.ModuleId }, new { @class = "btn btn-primary" })
+        </td>
+        <td>
+            @Html.ActionLink("ModuleInActive", "ModuleInActive", new { id = item.ModuleId }, new { @class = "btn btn-warning" })
+        </td>
+        <td>
+            @Html.ActionLink("Delete", "Delete", new { id = item.ModuleId }, new { @class = "btn btn-danger" })
+        </td>
+    </tr>
+    }
+
+</table>

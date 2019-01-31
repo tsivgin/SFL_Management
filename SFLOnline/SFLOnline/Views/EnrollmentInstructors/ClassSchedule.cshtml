@@ -1,0 +1,112 @@
+﻿@model Tuple<IEnumerable<SFLOnline.Models.Slot>, IEnumerable<SFLOnline.Models.Day> ,IEnumerable<SFLOnline.Models.ClassSchedule>>
+
+@{
+    ViewBag.Title = "ClassSchedule";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>ClassSchedule</h2>
+
+<div>
+    <h4>StudentAttendance</h4>
+    
+    <table class="table">
+
+
+        <tr>
+            @foreach (var item in Model.Item2)
+            {
+                <th>
+                    @Html.DisplayFor(modelitem => item.DaysName)
+                    
+                </th>
+            }
+        </tr>
+        @{ var count = 0;
+            var daycount = "";
+            var check = true;
+            foreach (var item in Model.Item1)
+            {
+        <tr>
+            @foreach (var item2 in Model.Item2)
+            {
+                daycount = item2.DaysName + count;
+                foreach (var item3 in Model.Item3)
+                {
+                    if (item3.SlotId == item.SlotId && item3.DayId == item2.DayId)
+                    {
+                        check = false;
+                    }
+                }
+                    <td>
+                        <div id="checkboxlist">
+                            @if (check == true)
+                            {
+                                <input type="checkbox" id="@daycount" value="@item.SlotName" />@item.SlotName
+                            }
+                            @if(check==false)
+                            {
+                                <span style="color:red"><input type="checkbox" id="@daycount" value="@item.SlotName" disabled />@item.SlotName</span>
+                            }
+                        </div>
+                    </td>
+                check = true;
+            }
+            </tr>
+
+                count += 1;
+
+
+            }
+            <input type="text" id="slots" value="@count" style="display:none" />
+            count = 0;
+            foreach (var item in Model.Item2)
+            {
+                <input type="text" value="@item.DaysName" id="@count" style="display:none" />
+                count += 1;
+            }
+            <input type="text" value="@count" id="days" style="display:none" />
+        }
+    </table>
+    <input type="button" value="Save" class="btn btn-success btn-lg float-right " style="margin-top:1%" onclick="test()" />
+</div>
+<script type="text/javascript">
+    function test() {
+
+        var day = new Array();
+        var dayscount = document.getElementById("days").value;
+        for (var i = 0; i < dayscount; i++) {
+            day[i] = document.getElementById(i).value;
+        } 
+
+        var daysArray = new Array();
+        var slotsArray = new Array();
+        var slotcount = document.getElementById("slots").value;
+        var idcontrol = "";
+        var count = 0;
+        for (var j = 0; j < dayscount; j++) {
+            for (var i = 0; i < slotcount; i++) {
+                idcontrol = day[j] + i;
+                if (document.getElementById(idcontrol).checked==true){
+                    daysArray[count] = day[j];
+                    slotsArray[count] = document.getElementById(idcontrol).value;
+                    count += 1;
+                }
+            }
+        }
+
+        var postData = { values: daysArray, values2: slotsArray };
+
+        $.ajax({
+            type: "POST",
+            url: "/EnrollmentInstructors/ClassSchedule",
+            data: postData,
+            success: function (data) {
+                alert(data.Result);
+            },
+            dataType: "json",
+            traditional: true
+        });
+        window.location.href = "/EnrollmentInstructors";
+        }
+</script>

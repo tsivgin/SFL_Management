@@ -1,0 +1,91 @@
+﻿@model Tuple<IEnumerable<SFLOnline.Models.Course>, IEnumerable<SFLOnline.Models.Class>>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_InstructorLayout.cshtml";
+}
+<link href="~/Content/Instructor.css" rel="stylesheet" />
+
+<h2 style="text-align:center">Classes</h2><br />
+
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-3">
+
+        </div>
+        <div class="col-md-3">
+            <table class="table">
+                <tr>
+                    <th class="float-right ">
+                        Class
+                    </th>
+
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-3">
+            <table class="table">
+                <tr>
+                    <th class="float-left ">
+                        Course
+                    </th>
+
+                </tr>
+            </table>
+        </div>
+
+        <div class="col-md-3">
+            
+        </div>
+
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+
+        </div>
+        <div class="col-md-3">
+            <table class="float-right">
+
+                @foreach (var item in Model.Item2)
+                {
+                    <tr>
+                        <td>
+                            @Html.ActionLink(item.ClassName, "WriteAnnouncement", new { id = item.ClassId }, new { @class = "btn-primary12" })
+
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+        <div class="col-md-3">
+            <table>
+
+                @foreach (var item in Model.Item1)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+
+                    </tr>
+                }
+            </table>
+        </div>
+
+        <div class="col-md-3">
+            @*<table>
+                        <tr>
+                            <td>
+                                @Html.ActionLink("Schedule", "Schedule", null , new { @class = "btn btn-primary" })
+                            </td>
+
+                        </tr>
+                </table>*@
+        </div>
+    </div>
+</div>

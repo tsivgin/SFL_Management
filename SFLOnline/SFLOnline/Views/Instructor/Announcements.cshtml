@@ -1,0 +1,54 @@
+﻿@model IEnumerable<SFLOnline.Models.Announcement>
+
+@{
+    ViewBag.Title = "Announcements";
+    Layout = "~/Views/Shared/_InstructorLayout.cshtml";
+}
+
+
+<h2>Announcements</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Writer ID
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AnnouncementName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Class.ClassName)
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Delete
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Person.Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AnnouncementName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Class.ClassName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.description)
+        </td>
+        @*<td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.AnnouncementId }, new { @class = "btn btn-primary" })
+        </td>*@
+        <td>
+            @Html.ActionLink("Delete", "Delete", new { id = item.AnnouncementId }, new { @class = "btn btn-danger" })
+        </td>
+    </tr>
+    }
+
+</table>

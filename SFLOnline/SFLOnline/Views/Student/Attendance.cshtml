@@ -1,0 +1,51 @@
+﻿@model SFLOnline.Models.StudentAttendance
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+
+
+
+<div>
+    <h4>Student Attendance</h4>
+    <hr />
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <dl class="dl-horizontal">
+
+                    <dt>
+                        My @Html.DisplayNameFor(model => model.Attendance)
+                    </dt>
+
+                    <dd>
+                        <p class="text-danger" style="color:white; margin:2%">
+
+                            @Html.DisplayFor(model => model.Attendance)
+                        </p>
+                    </dd>
+
+                </dl>
+            </div>
+            <div class="col-md-6">
+                <dl class="dl-horizontal">
+
+                    <dt>
+                        Attendance Limit
+                    </dt>
+
+                    <dd>
+                        <p class="text-danger" style="color:white; margin:2%">
+                            @ViewBag.attendance
+                        </p>
+                    </dd>
+
+                </dl>
+            </div>
+        </div>
+    </div>
+   
+    <div>
+        @Html.ActionLink("Back", "Index")
+    </div>
+</div>

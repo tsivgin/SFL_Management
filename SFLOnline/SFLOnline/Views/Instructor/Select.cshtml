@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "Select";
+    Layout = "~/Views/Shared/_InstructorLayout.cshtml";
+}
+
+<h2>Select</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 text-center">
+            @Html.ActionLink("Grades", "Grade", new { }, new { @class = "btn btn-primary" })
+        </div>
+        <div>
+
+            @Html.ActionLink("Attendance", "Attendance", new { }, new { @class = "btn btn-primary" })
+        </div>
+    </div>
+</div>
+<div class="container" style="margin:2%">
+    <div class="row" >
+        @if (Request.UrlReferrer != null)
+        {
+            <a class="bottomNav" onclick="history.go(-1); return false;" href="#">Back</a><br />
+        }
+    </div>
+</div>

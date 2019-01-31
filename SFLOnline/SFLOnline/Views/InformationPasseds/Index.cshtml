@@ -1,0 +1,58 @@
+﻿@model IEnumerable<SFLOnline.Models.InformationPassed>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Exit.ExitName)
+        </th>
+        <th>
+            Grade Average
+        </th>
+        <th>
+            Passed
+        </th>
+        <th>
+            Attendance Limit
+        </th>
+        <th>
+            Edit
+        </th>
+        <th>
+            Delete
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Exit.ExitName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.gradeAverage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.passed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AttendanceLimit)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.InformationPassedId }, new { @class = "btn btn-primary"}) 
+        </td>
+        <td>
+            @Html.ActionLink("Delete", "Delete", new { id=item.InformationPassedId }, new { @class = "btn btn-danger" })
+        </td>
+    </tr>
+}
+
+</table>

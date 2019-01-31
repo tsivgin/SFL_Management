@@ -1,0 +1,45 @@
+﻿@model IEnumerable<SFLOnline.Models.Grade>
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Student Attendance</h4>
+    
+    <table class="table">
+        <tr>
+            <th>
+                Grade Title
+            </th>
+            <th>
+                Grade
+            </th>
+            
+        </tr>
+
+        @foreach (var item in Model)
+        {
+        <tr>            
+            <td>
+                @Html.DisplayFor(modelItem => item.GradePercentage.name)
+                <p style="color:blue"> %@Html.DisplayFor(modelItem => item.GradePercentage.percentage)</p>
+            </td>
+            <td>
+                <p style="color:blue"> @Html.DisplayFor(modelItem => item.Grades, new { @class = "text-primary" })</p>
+            </td>
+
+         
+        </tr>
+        }
+
+    </table>
+
+</div>
+<div>
+    @Html.ActionLink("Back", "Index")
+</div>
+

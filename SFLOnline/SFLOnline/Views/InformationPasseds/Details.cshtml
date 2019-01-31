@@ -1,0 +1,51 @@
+﻿@model SFLOnline.Models.InformationPassed
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>InformationPassed</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Exit.ExitName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Exit.ExitName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.gradeAverage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.gradeAverage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.passed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.passed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AttendanceLimit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AttendanceLimit)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.InformationPassedId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

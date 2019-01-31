@@ -1,0 +1,9 @@
+﻿.btn-primary12 {
+    color: #0495c9;
+}
+
+
+.btn-primary12:hover, .btn-primary12:focus, .btn-primary12:active, .btn-primary12.active, .open > .dropdown-toggle.btn-primary12 {
+    color: #000000;
+}
+

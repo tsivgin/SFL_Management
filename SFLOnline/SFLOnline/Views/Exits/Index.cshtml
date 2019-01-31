@@ -1,0 +1,47 @@
+﻿@model IEnumerable<SFLOnline.Models.Exit>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Exits</h2>
+
+<p class="text-primary">
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ExitName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ForEnrollment)
+        </th>
+        <th>
+            Edit
+        </th>
+        <th>
+            Delete
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExitName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ForEnrollment)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ExitId }, new { @class = "btn btn-primary" })
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", new { id = item.ExitId }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
+
+</table>

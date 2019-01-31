@@ -1,0 +1,53 @@
+﻿@model IEnumerable<SFLOnline.Models.TrackCourses>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Track Courses</h2>
+
+<p class="text-primary">
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Track.TrackName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Course.Title)
+        </th>
+        <th>
+            Edit
+        </th>
+        <th>
+            Details
+        </th>
+        <th>
+            Delete
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Track.TrackName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Course.Title)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-warning" })
+        </td>
+        <td>
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+        </td>
+    </tr>
+    }
+
+</table>

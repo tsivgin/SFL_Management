@@ -1,0 +1,30 @@
+﻿@model IEnumerable<SFLOnline.Models.Announcement>
+@{
+    ViewBag.Title = "StudentHome";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 ">
+            <img src="~/Content/Images/sfl_en_logo.jpg" height="80" />
+        </div>
+        <div class="col-lg-6 ">
+            <p class="text-primary">Active Module is : @ViewBag.module</p>
+            <p class="text-secondary">My Class is: @ViewBag.studentclass</p>
+        </div>
+    </div>
+</div>
+
+<div class="card card-body bg-light">
+
+    <h3>Welcome to SFL Online</h3>
+    <br />
+    @foreach (var item in Model)
+    {
+        <h4 class="text-primary">@item.AnnouncementName</h4>
+        <h6 class="text-secondary">@item.Person.FullName</h6>
+        <h5>@item.description</h5>
+        <hr />
+    }
+
+</div>

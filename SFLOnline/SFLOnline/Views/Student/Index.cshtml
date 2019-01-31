@@ -1,0 +1,53 @@
+﻿@model IEnumerable<SFLOnline.Models.TrackCourses>
+
+@{
+    ViewBag.Title = "Courses";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+
+<h3 class="text-center">Active Module :  @ViewBag.module</h3>
+<h3 class="text-center">My Track: @ViewBag.Track</h3>
+<h3 class="text-center">My Class :  @ViewBag.Class</h3>
+
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-4">
+            
+        </div>
+        <div class="col-md-4">
+            <table class="table">
+                <tr>
+                    <th style="text-align:center">
+                        Course Title
+                    </th>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-4">
+            
+        </div>
+    </div>
+</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4">
+                <table class="table">
+                    <tr>
+                        @foreach (var item in Model)
+                        {
+                            <td>
+                                @Html.ActionLink(item.Course.Title, "Select", new { id = item.Course.CourseId }, new { @class = "btn btn-primary" })
+                            </td>
+                        }
+                    </tr>
+                    </table>
+            </div>
+            <div class="col-md-4">               
+            </div>
+        </div>
+    </div>
+

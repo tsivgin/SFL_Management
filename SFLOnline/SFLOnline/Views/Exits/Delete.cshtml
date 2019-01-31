@@ -1,0 +1,44 @@
+﻿@model SFLOnline.Models.Exit
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h3 class="text-danger">Are you sure you want to delete this?</h3>
+<div>
+    <h4>DeleteExit</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ExitName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExitName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ForEnrollment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ForEnrollment)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" />
+
+        </div>
+        <div class="form-actions no-color mt-2">
+
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

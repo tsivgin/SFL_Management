@@ -1,0 +1,105 @@
+﻿@model IEnumerable<SFLOnline.Models.StudentAttendance>
+@{
+    ViewBag.Title = "Attendance";
+    Layout = "~/Views/Shared/_InstructorLayout.cshtml";
+}
+
+
+
+
+
+<h4>StudentAttendance</h4>
+<hr />
+<table class="table">
+    <tr>
+        <th>
+            StudentId
+        </th>
+        <th></th>
+        <th>
+            Attendance
+        </th>
+        <th></th>
+        <th>
+            Weekly Attendance
+        </th>
+
+    </tr>
+    @{int count = 0;
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Student.Id)
+                </td>
+                <td></td>
+                <td>
+
+                    @Html.DisplayFor(modelItem => item.Attendance)
+                </td>
+                <td></td>
+                <td>
+
+                    <input type="text" id="@count" value="0" style="width:35px" />
+                    @{ count = count + 1; }
+                    <input type="text" id="@count" value="@item.Id" style="width:35px;display:none" />
+                    @{ count = count + 1; }
+                </td>
+            </tr>
+        }
+        <input type="text" id="text1" value="@count" style="width:35px;display:none" />
+    }
+</table>
+
+<div class="form-group container float-right">
+    <div class="col-md-offset-2 col-md-10 border-top-0">
+        <input type="button" value="Save" class="btn btn-success btn-lg float-right " style="margin-top:1%; margin-right:15%" onclick="test()" />
+    </div>
+</div>
+
+
+
+@if (Request.UrlReferrer != null)
+{
+    <a class="bottomNav" onclick="history.go(-1); return false;" href="#">Back</a><br />
+}
+else
+{
+    @Html.ActionLink("Back to List", "Index")
+}
+
+
+
+<script type="text/javascript">
+
+    function test() {
+
+        var x = document.getElementById("text1").value;
+
+        var Id = new Array();
+        var Attendance = new Array();
+        var a = 0;
+        for (var count = 0; count < x; count++) {
+            Attendance[a] = document.getElementById(count).value;
+            Id[a] = document.getElementById(++count).value;
+            a++;
+        }
+        var postData = { values: Attendance, values2: Id };
+
+        $.ajax({
+            type: "POST",
+            url: "/Instructor/Attendance",
+            data: postData,
+            success: function (data) {
+                alert(data.Result);
+            },
+            dataType: "json",
+            traditional: true
+        });
+        alert("Succesfully Added weekly attendance");
+        window.location.href = "/Instructor/Attendance";
+        location.reload(true);
+        window.location.href = "/Instructor/Attendance";
+    }
+
+</script>

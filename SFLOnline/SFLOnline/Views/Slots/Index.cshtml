@@ -1,0 +1,46 @@
+﻿@model IEnumerable<SFLOnline.Models.Slot>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Slots</h2>
+
+<p  class="text-primary">
+    @Html.ActionLink("Create New Slot", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SlotName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SlotNumber)
+        </th>
+        <th>
+            Edit
+        </th>
+        <th>
+            Delete
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SlotName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SlotNumber)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.SlotId } ,new{@class="btn btn-primary"}) 
+        </td>
+        <td>
+            @Html.ActionLink("Delete", "Delete", new { id=item.SlotId }, new { @class = "btn btn-danger" })
+        </td>
+    </tr>
+}
+
+</table>

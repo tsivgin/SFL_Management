@@ -1,0 +1,52 @@
+﻿@model IEnumerable<SFLOnline.Models.StudentExitGrade>
+
+@{
+    ViewBag.Title = "Exit Grades";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Exit Grades</h2>
+
+<p  class="text-primary">
+    @Html.ActionLink("Create New Exit Grades", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Exit.ExitName)
+        </th>
+        <th>
+            StudentID
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.grade)
+        </th>
+        <th>
+            Edit
+        </th>
+        <th>
+            Delete
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Exit.ExitName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Student.Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.grade)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id },new { @class = "btn btn-primary" }) 
+        </td>
+        <td>
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id }, new { @class = "btn btn-danger" })
+        </td>
+    </tr>
+}
+
+</table>

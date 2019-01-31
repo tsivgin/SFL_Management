@@ -1,0 +1,40 @@
+﻿
+@model IEnumerable<SFLOnline.Models.Class>
+@{
+    ViewBag.Title = "Grades";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Classes</h2>
+
+<p  class="text-primary">
+    @Html.ActionLink("Search By Student ID", "Search")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            Class Name
+        </th>
+        <th>
+            Select
+        </th>
+    </tr>
+
+
+            @foreach (var item in Model)
+            {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClassName)
+            </td>
+
+            <td>
+                @Html.ActionLink("Select", "Courses", new { id = item.TrackId ,cid = item.ClassId},  new { @class = "btn btn-primary" })
+            </td>
+        </tr>
+    }
+
+    </table>
+
+           

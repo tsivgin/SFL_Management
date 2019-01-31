@@ -1,0 +1,39 @@
+﻿@model IEnumerable<SFLOnline.Models.Day>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Days</h2>
+
+<p  class="text-primary">
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DaysName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DayNumber)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DaysName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DayNumber)
+        </td>
+        <td>
+           
+            @Html.ActionLink("Delete", "Delete", new { id=item.DayId },new { @class = "btn btn-danger" })
+        </td>
+    </tr>
+}
+
+</table>

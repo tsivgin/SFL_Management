@@ -1,0 +1,105 @@
+﻿
+@{
+    ViewBag.Title = "CalculateExit";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+
+<h2>Calculate Exit</h2>
+
+
+<div class="container">
+    <div class="row">
+        <table class="table">
+
+            <tr>                
+              <th class="text-primary">Average All Grage: @ViewBag.average</th>                
+            </tr>
+            <tr>
+                <th class="text-danger">@ViewBag.averageerror</th>
+            </tr>
+            <tr>
+                <th class="text-primary">@ViewBag.exitexam</th>
+            </tr>
+        </table>
+
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <table class="table ">
+
+                <tr>
+                    <th class="text-primary">Academic Average:</th>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" class="input-group-text" id="academicaverage" min="0" max="100" maxlength="3" />
+                    </td>
+                </tr>
+                <tr>
+
+                    <th class="text-primary">Exit Exam Grade</th>
+
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" class="input-group-text" id="exitexamgrade" min="0" max="100" maxlength="3" />
+                    </td>
+                </tr>
+                <tr>
+
+                    <th class="text-primary">Prep Passing Grade</th>
+
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" class="input-group-text" id="preppassinggrade" readonly="readonly" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="text-center">
+                        <input type="button" class="btn btn-primary" id="submit" value="Submit" onclick="calculate()" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" class="bg-primary" id="status" hidden />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" class="bg-danger" id="status2" hidden />
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function calculate() {
+        var academicaverage = (document.getElementById("academicaverage").value)* 1;
+        var exitexamgrade = (document.getElementById("exitexamgrade").value)*1;
+        var average = 0;
+        if (exitexamgrade > 65) {
+            average = (academicaverage + exitexamgrade)*1 / 2;
+        }
+        else {
+            average = academicaverage / 2;
+        }
+        document.getElementById("preppassinggrade").value = average;
+       
+        if (average >= 70) {
+            document.getElementById("status").value = "FRESH"
+            document.getElementById("status").hidden = false;
+            Document.getElementById("status2").value = " ";
+            document.getElementById("status2").hidden = true;
+        }
+        else
+        document.getElementById("status2").value = "PREP"
+        document.getElementById("status2").hidden = false;
+        Document.getElementById("status").value = " ";
+        document.getElementById("status").hidden = true;
+    }
+</script>

@@ -1,0 +1,213 @@
+﻿@model Tuple<IEnumerable<SFLOnline.Models.EnrollmentStudent>, IEnumerable<SFLOnline.Models.GradePercentage>, IEnumerable<SFLOnline.Models.Grade>>
+
+@{
+    ViewBag.Title = "Grades";
+    Layout = "~/Views/Shared/_InstructorLayout.cshtml";
+}
+
+
+<h2>Grades</h2>
+
+@using (Html.BeginForm())
+{
+
+    @Html.AntiForgeryToken()
+    <table class="table">
+        <tr>
+            <th>
+                StudentID
+            </th>
+            @{ 
+               var percentagecount = 0;
+                      
+                foreach(var item in Model.Item2)
+                {
+                    var percentage = "percentage";
+                    percentage = percentage + percentagecount;
+                    <th>
+                        @Html.DisplayFor(modelItem => item.name)<br>
+                        %@Html.DisplayFor(modelItem => item.percentage)
+                        <input type="text" id="@percentage" value="@item.percentage" style="display:none" />
+                    </th>
+                    percentagecount++;
+                }
+            }
+            <th>
+                Total
+            </th>
+        </tr>
+        @{
+            var count = 0;
+            var studentcount = 0;
+            foreach (var item in Model.Item1)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StudentId)
+                    </td>
+
+
+
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+                    @foreach (var item2 in Model.Item2)
+                    {
+                        foreach (var item3 in Model.Item3)
+                        {
+                            if (item3.StudentId == item.StudentId && item3.GradePercentageId == item2.Id)
+                            {
+                                <td>
+                                    <div class="form-group">
+                                        <div class="col-sm-2">
+                                            <input type="text" id="@count" value="@item3.Grades" style="width:35px" onchange="sum()" />
+                                            @{
+                                                count = count + 1;
+                                            }
+                                            <input type="text" id="@count" value="@item3.Id" style="width:35px; display:none" />
+                                            @{
+                                                count = count + 1;
+                                            }
+
+                                        </div>
+                                    </div>
+
+                                </td>
+                            }
+
+
+                        }
+
+                    }
+                    <td>
+                        @{
+                            var studentc = "student";
+                            studentc = studentc + studentcount;
+
+                            <input type="text" id="@studentc" DISABLED style="width:15%"> </input>
+
+                        }
+                        @{ studentcount = studentcount + 1; }
+                    </td>
+
+                </tr>
+            }
+            <input type="text" id="text1" value="@count" style="width:35px; display:none" />
+            <input type="text" id="studentcount" value="@studentcount" style="width:35px; display:none" />
+        }
+    </table>
+    <div class="form-group container float-right">
+        <div class="col-md-offset-2 col-md-10 border-top-0">
+            <input type="button" value="Save" class="btn btn-success btn-lg float-right " style="margin-top:1%" onclick="test()" />
+        </div>
+    </div>
+
+}
+
+@if (Request.UrlReferrer != null)
+{
+    <a class="bottomNav" onclick="history.go(-1); return false;" href="#">Back</a><br />
+}
+
+<script type="text/javascript">
+
+    window.onload = function () {
+        var count = (document.getElementById("text1").value);
+        var studentcount = document.getElementById("studentcount").value;
+        var control = (count * 1 / studentcount * 1) / 2;
+        var grades = new Array();
+        var percentage = new Array();
+        var a = 0;
+        var studenta = 0;
+        var sum = 0;
+        for (var i = 0; i < count; i += 2) {
+            grades[a] = document.getElementById(i).value;           
+            a++;
+        }
+        for (var i = 0; i < control; i++) {
+            percentage[i] = document.getElementById("percentage" + i).value;
+        }
+        var x = 1;
+        var c = 0;
+        for (var i = 0; i < a; i++) {
+            sum = sum + grades[i] * percentage[c]/100;
+            if (x % control == 0 && i != 0) {
+                document.getElementById("student" + studenta).value = sum;
+                c = 0;
+                studenta++;
+                sum = 0;
+            }
+            else
+                c++;
+            x++;
+        }
+    }
+
+    function sum() {
+        var count = (document.getElementById("text1").value);
+        var studentcount = document.getElementById("studentcount").value;
+        var control = (count * 1 / studentcount * 1) / 2;
+        var grades = new Array();
+        var percentage = new Array();
+        var a = 0;
+        var studenta = 0;
+        var sum = 0;
+        for (var i = 0; i < count; i += 2) {
+            grades[a] = document.getElementById(i).value;
+            a++;
+        }
+        for (var i = 0; i < control; i++) {
+            percentage[i] = document.getElementById("percentage" + i).value;
+        }
+        var x = 1;
+        var c = 0;
+        for (var i = 0; i < a; i++) {
+            sum = sum + grades[i] * percentage[c] / 100;
+            if (x % control == 0 && i != 0) {
+                document.getElementById("student" + studenta).value = sum;
+                c = 0;
+                studenta++;
+                sum = 0;
+            }
+            else
+                c++;
+            x++;
+        }
+    }
+
+
+
+    function test() {
+
+        var x = document.getElementById("text1").value;
+
+        var stringArray = new Array();
+        var stringArray2 = new Array();
+        var a = 0;
+        for (var count = 0; count < x; count++) {
+            stringArray2[a] = document.getElementById(count).value;
+            stringArray[a] = document.getElementById(++count).value;
+            a++;
+        }
+        var postData = { values: stringArray, values2: stringArray2 };
+
+        $.ajax({
+            type: "POST",
+            url: "/Instructor/GradePercentage2",
+            data: postData,
+            success: function (data) {
+                alert(data.Result);
+            },
+            dataType: "json",
+            traditional: true
+        });
+
+        alert("Succesfully Added Grades");
+        window.location.href = "/Instructor/Grade";
+        location.reload(true);
+        window.location.href = "/Instructor/Grade";
+    }
+
+</script>

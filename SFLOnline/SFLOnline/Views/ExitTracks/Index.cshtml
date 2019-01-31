@@ -1,0 +1,52 @@
+﻿@model IEnumerable<SFLOnline.Models.ExitTrack>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Exit Tracks</h2>
+
+<p class="text-primary">
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Exit.ExitName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Track.TrackName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.grade)
+        </th>
+        <th>
+            Edit
+        </th>
+        <th>
+            Delete
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Exit.ExitName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Track.TrackName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.grade)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ExitTrackId },new { @class = "btn btn-primary" })
+        </td>
+        <td>
+            @Html.ActionLink("Delete", "Delete", new { id = item.ExitTrackId },new { @class = "btn btn-danger" })
+        </td>
+    </tr>
+}
+
+</table>

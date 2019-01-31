@@ -1,0 +1,47 @@
+﻿@model SFLOnline.Models.EnrollmentInstructor
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>EnrollmentInstructor</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Class.ClassName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Class.ClassName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Course.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Course.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InstructorId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InstructorId)
+        </dd>
+
+    </dl>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })
+        </div>
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

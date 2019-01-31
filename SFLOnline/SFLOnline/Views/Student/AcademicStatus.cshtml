@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "AcademicStatus";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+
+<h2>Average Modules</h2>
+<div class="container">
+    <div class="row">
+        <table class="table">
+            
+            <tr>
+                @foreach (var item in ViewBag.modules)
+                {
+                    <th>Module Name: @item.ModuleName</th>
+                }
+            </tr>
+
+            <tr>
+                @foreach (var item in ViewBag.sums)
+                {
+                    <td>Average: @item</td>
+                }
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+
+

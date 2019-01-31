@@ -1,0 +1,70 @@
+﻿@model Tuple<IEnumerable<SFLOnline.Models.Exit>, IEnumerable<SFLOnline.Models.ExitTrack>>
+
+@{
+    ViewBag.Title = "EnrollmentGrades";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>EnrollmentGrades</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Create EnrollmentStudent</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label>Exit For Enrollment</label>
+            <div class="col-md-10">
+                @Html.DropDownList("ClassId", null, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row border-bottom border-danger" style="margin-top:2%">
+                <div class="col-md-2">
+                    <label class="col-lg-10">Exit Name</label>
+                </div>
+                <div class="col-md-2">
+                    <label class="col-lg-10">Track Name</label>
+                </div>
+                <div class="col-md-2">
+                    <label class="col-lg-10">For Grade</label>
+                </div>
+            </div>
+        </div>
+        @foreach (var item in Model.Item2)
+        {
+            <div class="container">
+                <div class="row border-bottom " style="margin-top:2%">
+                    <div class="col-md-2">
+                        @Html.LabelFor(model => item.Exit.ExitName, item.Exit.ExitName, htmlAttributes: new { @class = "col-lg-10" })
+                    </div>
+                    <div class="col-md-2">
+                        @Html.LabelFor(model => item.Track.TrackName, item.Track.TrackName, htmlAttributes: new { @class = "col-lg-10" })                       
+                    </div>
+                    <div class="col-md-2">
+                        @Html.LabelFor(model => item.grade,item.grade.ToString(), htmlAttributes: new { @class = "col-lg-10" })                        
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+}
+<div class="form-group container" style="margin-top:2%;margin-left:30%">
+    <div class="col-md-offset-2 col-md-10 border-top-0">
+        @Html.ActionLink("Enroll All Student", "EnrollStudent","", new { @class="btn btn-success btn-lg"})
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
